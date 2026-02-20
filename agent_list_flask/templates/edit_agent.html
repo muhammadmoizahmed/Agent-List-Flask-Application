@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Agent - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .form-header h2 {
+            color: #2a5298;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .form-header p {
+            color: #666;
+            margin-bottom: 0;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-control:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+        }
+        .btn-submit {
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-cancel:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .back-link a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .input-group-text {
+            background: transparent;
+            border: 1px solid #ddd;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+        }
+        .form-label {
+            color: #2a5298;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .agent-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #2a5298;
+        }
+        .agent-info h6 {
+            color: #2a5298;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="{{ url_for('admin') }}">
+                <i class="fas fa-user-shield me-2"></i>Admin Panel
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text text-white me-3">
+                    <i class="fas fa-user me-1"></i>{{ session.admin_username }}
+                </span>
+                <a class="nav-link text-white" href="{{ url_for('index') }}">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+                <a class="nav-link text-white" href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-user-edit fa-3x text-warning mb-3"></i>
+                <h2>Edit Agent</h2>
+                <p>Update agent information below</p>
+            </div>
+
+            <!-- Agent Info -->
+            <div class="agent-info">
+                <h6><i class="fas fa-info-circle me-1"></i>Current Information</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <small class="text-muted">Agent ID:</small><br>
+                        <strong>{{ agent.agent_custom_id or agent.id }}</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <small class="text-muted">Name:</small><br>
+                        <strong>{{ agent.name }}</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <small class="text-muted">WhatsApp:</small><br>
+                        <strong>{{ agent.whatsapp_number }}</strong>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <small class="text-muted">Phone:</small><br>
+                        <strong>{{ agent.phone_number or 'N/A' }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="agent_custom_id" class="form-label">
+                        <i class="fas fa-id-badge me-1"></i>Agent ID
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-id-badge"></i>
+                        </span>
+                        <input type="text" name="agent_custom_id" id="agent_custom_id" class="form-control" 
+                               value="{{ agent.agent_custom_id or agent.id }}" placeholder="Enter agent ID" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">
+                        <i class="fas fa-user me-1"></i>Agent Name
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" name="name" id="name" class="form-control" 
+                               value="{{ agent.name }}" placeholder="Enter agent name" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="whatsapp_number" class="form-label">
+                        <i class="fab fa-whatsapp me-1"></i>Report WhatsApp Number
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fab fa-whatsapp"></i>
+                        </span>
+                        <input type="tel" name="whatsapp_number" id="whatsapp_number" 
+                               class="form-control" value="{{ agent.whatsapp_number }}" 
+                               placeholder="Enter WhatsApp number with country code" required>
+                    </div>
+                    <small class="text-muted">Include country code</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone_number" class="form-label">
+                        <i class="fas fa-phone me-1"></i>Agent Phone Number
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        <input type="tel" name="phone_number" id="phone_number" 
+                               class="form-control" value="{{ agent.phone_number or '' }}" 
+                               placeholder="Enter phone number (optional)">
+                    </div>
+                    <small class="text-muted">This number is only shown on the site, WhatsApp is main contact.</small>
+                </div>
+
+                <input type="hidden" name="country" value="{{ agent.country }}">
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">
+                        <i class="fas fa-user-tag me-1"></i>Category
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-tag"></i>
+                        </span>
+                        <select name="category" id="category" class="form-control" required>
+                            <option value="Admin" {% if agent.category == 'Admin' %}selected{% endif %}>Admin</option>
+                            <option value="SubAdmin" {% if agent.category == 'SubAdmin' %}selected{% endif %}>SubAdmin</option>
+                            <option value="Super" {% if agent.category == 'Super' %}selected{% endif %}>Super</option>
+                            <option value="Master" {% if agent.category == 'Master' %}selected{% endif %}>Master</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="rating" class="form-label">
+                        <i class="fas fa-star me-1"></i>Rating (1-5 Stars)
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <select name="rating" id="rating" class="form-control" required>
+                            <option value="5" {% if agent.rating == 5 %}selected{% endif %}>⭐⭐⭐⭐⭐ (5 Stars)</option>
+                            <option value="4" {% if agent.rating == 4 %}selected{% endif %}>⭐⭐⭐⭐ (4 Stars)</option>
+                            <option value="3" {% if agent.rating == 3 %}selected{% endif %}>⭐⭐⭐ (3 Stars)</option>
+                            <option value="2" {% if agent.rating == 2 %}selected{% endif %}>⭐⭐ (2 Stars)</option>
+                            <option value="1" {% if agent.rating == 1 %}selected{% endif %}>⭐ (1 Star)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-save me-2"></i>Update Agent
+                    </button>
+                    <a href="{{ url_for('admin') }}" class="btn btn-cancel">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyFairx & baajiX365 Official Agent List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo-images {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .logo-images img {
+            height: 40px;
+            max-width: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+        .logo-text {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .main-container {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        .info-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .warning-box {
+            background: #dc3545;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        .filter-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .filter-btn {
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #444;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #ffd700;
+            color: #000000;
+            border-color: #ffd700;
+        }
+        .search-box {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #ffffff;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+        }
+        .search-box::placeholder {
+            color: #888;
+        }
+        .agent-list {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .agents-table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #ffffff;
+            background-color: transparent;
+            --bs-table-bg: transparent;
+            --bs-table-striped-bg: transparent;
+            --bs-table-hover-bg: transparent;
+            --bs-table-border-color: #333;
+        }
+        .agents-table thead {
+            background-color: #1a1a1a !important;
+        }
+        .agents-table thead th {
+            background-color: #1a1a1a !important;
+            border-color: #333 !important;
+            color: #dddddd;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .agents-table thead th:first-child {
+            text-align: left;
+        }
+        .agents-table tbody td {
+            vertical-align: middle;
+        }
+        .agents-table tbody tr.agent-item {
+            background-color: #2a2a2a !important;
+            border-color: #333 !important;
+        }
+        .agents-table tbody tr.agent-item:nth-child(even) {
+            background-color: #2a2a2a !important;
+        }
+        .agents-table tbody tr.agent-item:hover {
+            background-color: #333333 !important;
+        }
+        .agent-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .agent-avatar {
+            width: 50px;
+            height: 50px;
+            background: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+        .agent-details {
+            flex: 1;
+        }
+        .agent-name {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+        .agent-id {
+            background: #ffd700;
+            color: #000000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.25rem;
+        }
+        .agent-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 0.25rem;
+        }
+        .agent-rating {
+            color: #ffd700;
+            font-size: 0.9rem;
+        }
+        .agent-phone {
+            color: #f8f8f8;
+            font-size: 0.9rem;
+        }
+        .agent-phone-cell {
+            color: #ffffff !important;
+            font-size: 0.9rem;
+        }
+        .agent-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+        .action-btn:hover {
+            color: #ffffff;
+        }
+        .whatsapp-btn {
+            color: #25D366;
+        }
+        .whatsapp-btn:hover {
+            color: #128C7E;
+        }
+        .report-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .report-btn:hover {
+            background: #c82333;
+            color: white;
+            text-decoration: none;
+        }
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid #333;
+            padding: 2rem 0;
+            text-align: center;
+            color: #888;
+            margin-top: 3rem;
+        }
+        .section-title {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+        .bengali-text {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .agent-modal-content {
+            background: #111827;
+            border-radius: 20px;
+            border: 1px solid #374151;
+            color: #ffffff;
+        }
+        .agent-modal-header {
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid #1f2937;
+            text-align: center;
+        }
+        .agent-modal-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #facc15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: #111827;
+            font-size: 2rem;
+        }
+        .agent-modal-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .agent-modal-badge {
+            display: inline-block;
+            background: #facc15;
+            color: #111827;
+            padding: 0.25rem 1rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .agent-modal-body {
+            padding: 1.5rem 2rem 2rem 2rem;
+        }
+        .agent-modal-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .agent-modal-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ca3af;
+        }
+        .agent-modal-id-badge {
+            background: #facc15;
+            color: #111827;
+            padding: 0.25rem 0.9rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+        }
+        .agent-modal-rating {
+            color: #facc15;
+        }
+        .agent-modal-footer-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .agent-modal-whatsapp-btn {
+            background: #22c55e;
+            border: none;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            color: #ffffff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .agent-modal-whatsapp-btn:hover {
+            background: #16a34a;
+            color: #ffffff;
+        }
+        .agent-modal-report-btn {
+            background: #b91c1c;
+            border: none;
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            color: #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+        }
+        .agent-modal-report-btn:hover {
+            background: #991b1b;
+            color: #ffffff;
+        }
+        @media (max-width: 576px) {
+            .navbar-brand {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+            .logo-images {
+                justify-content: flex-start;
+            }
+            .logo-images img {
+                height: 32px;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
+            .agents-table thead th,
+            .agents-table tbody td {
+                font-size: 0.8rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            .agents-table tbody .agent-rating {
+                white-space: nowrap;
+                font-size: 0.8rem;
+            }
+            .agent-avatar {
+                width: 40px;
+                height: 40px;
+            }
+            .report-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+            .filter-section .row > div {
+                margin-bottom: 0.75rem;
+            }
+            .agent-modal-header {
+                padding: 1.5rem 1.5rem 1rem 1.5rem;
+            }
+            .agent-modal-body {
+                padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                {% if logos and logos|length > 0 %}
+                <div class="logo-images">
+                    {% for logo in logos %}
+                    <img src="{{ url_for('static', filename='images/' + logo.filename) }}" 
+                         alt="{{ logo.title or ('Logo ' ~ loop.index) }}">
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="logo-text">
+                    {{ page_title }}
+                </div>
+                {% endif %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link text-white" href="{{ url_for('login') }}">
+                    <i class="fas fa-user-shield me-1"></i>Admin Login
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container main-container">
+        <!-- Section Title -->
+        <h1 class="section-title">{{ page_title }}</h1>
+        
+        <!-- Information Section -->
+        <div class="info-section">
+            <div class="bengali-text">
+                <h5><strong>{{ info_data.main_title }}</strong></h5>
+                <p>{{ info_data.description }}</p>
+                
+                <div class="warning-box">
+                    <strong>⚠️ সতর্কতা:</strong> {{ info_data.warning }}
+                </div>
+                
+                <p><strong>ডিপোজিট এবং উইথড্র:</strong></p>
+                <ul>
+                    {% for line in info_data.deposit_info.split('\n') %}
+                    <li>{{ line }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <button class="filter-btn active" onclick="filterAgents('all')">All ({{ all_count }})</button>
+                    <button class="filter-btn" onclick="filterAgents('admin')">Admin ({{ admin_count }})</button>
+                    <button class="filter-btn" onclick="filterAgents('subadmin')">SubAdmin ({{ subadmin_count }})</button>
+                    <button class="filter-btn" onclick="filterAgents('super')">Super ({{ super_count }})</button>
+                    <button class="filter-btn" onclick="filterAgents('master')">Master ({{ master_count }})</button>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control search-box" placeholder="Search agents..." id="searchInput">
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents List -->
+        <div class="agent-list">
+            {% if agents %}
+                <div class="table-responsive">
+                    <table class="table agents-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Rating</th>
+                                <th>App</th>
+                                <th>Phone</th>
+                                <th>View</th>
+                                <th>Report</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for agent in agents %}
+                            {% set rating = agent.rating | default(5) %}
+                            <tr class="agent-item" data-category="{{ agent.category | default('Admin') }}">
+                                <td>
+                                    <div class="agent-name-cell">
+                                        <div class="agent-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="agent-details">
+                                            <div class="agent-name">{{ agent.name }}</div>
+                                            <div class="agent-category">
+                                                <span class="badge bg-warning text-dark">{{ agent.category }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="agent-id">
+                                        ID: {{ agent.agent_custom_id or agent.id }}
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="agent-rating">
+                                        {% for i in range(rating) %}
+                                            ⭐
+                                        {% endfor %}
+                                        {% if rating < 5 %}
+                                            {% for i in range(5 - rating) %}
+                                                ☆
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    {% if agent.phone_number %}
+                                    <a href="https://wa.me/{{ agent.phone_number.replace('-', '').replace(' ', '') }}" 
+                                       target="_blank" class="action-btn whatsapp-btn" title="WhatsApp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    {% else %}
+                                    <a href="https://wa.me/{{ agent.whatsapp_number.replace('-', '').replace(' ', '') }}" 
+                                       target="_blank" class="action-btn whatsapp-btn" title="WhatsApp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                                <td class="agent-phone-cell text-center">
+                                    {{ agent.phone_number or 'N/A' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-btn view-btn"
+                                          data-agent-id="{{ agent.agent_custom_id or agent.id }}"
+                                          data-agent-name="{{ agent.name }}"
+                                          data-agent-category="{{ agent.category }}"
+                                          data-agent-rating="{{ agent.rating | default(5) }}"
+                                          data-agent-whatsapp="{{ agent.whatsapp_number }}"
+                                          data-agent-phone="{{ agent.phone_number or '' }}"
+                                          data-agent-created="{{ agent.created_at[:10] if agent.created_at else '' }}">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="https://wa.me/{{ agent.whatsapp_number.replace('-', '').replace(' ', '') }}?text=I want to report this agent: {{ agent.name }}" 
+                                       target="_blank" class="report-btn">
+                                        Report
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-users-slash fa-3x mb-3 text-muted"></i>
+                    <h4 class="text-muted">No agents available at the moment</h4>
+                    <p class="text-muted">Agents will be listed here once added by admin</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="agentDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content agent-modal-content">
+                <div class="agent-modal-header">
+                    <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="agent-modal-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="agent-modal-name" id="modalAgentName"></div>
+                    <div class="agent-modal-badge" id="modalAgentCategory"></div>
+                </div>
+                <div class="agent-modal-body">
+                    <div class="agent-modal-row">
+                        <div class="agent-modal-label">
+                            <i class="fas fa-id-badge"></i>
+                            <span>Agent ID</span>
+                        </div>
+                        <div class="agent-modal-id-badge" id="modalAgentId"></div>
+                    </div>
+                    <div class="agent-modal-row">
+                        <div class="agent-modal-label">
+                            <i class="fas fa-star"></i>
+                            <span>Rating</span>
+                        </div>
+                        <div class="agent-modal-rating" id="modalAgentRating"></div>
+                    </div>
+                    <div class="agent-modal-row">
+                        <div class="agent-modal-label">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone</span>
+                        </div>
+                        <div id="modalAgentPhone"></div>
+                    </div>
+                    <div class="agent-modal-row">
+                        <div class="agent-modal-label">
+                            <i class="fas fa-calendar"></i>
+                            <span>Member Since</span>
+                        </div>
+                        <div id="modalAgentDate"></div>
+                    </div>
+                    <div class="agent-modal-footer-actions">
+                        <a href="#" target="_blank" id="modalWhatsAppBtn" class="agent-modal-whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Contact via WhatsApp</span>
+                        </a>
+                        <a href="#" target="_blank" id="modalReportBtn" class="agent-modal-report-btn">
+                            Report Agent
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2026 SkyFairx & baajiX365. All rights reserved. Made with ❤️ for our users.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filter functionality
+        function filterAgents(category) {
+            const normalizedCategory = category.toLowerCase();
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Filter agents by category (case-insensitive)
+            const agents = document.querySelectorAll('.agent-item');
+            
+            agents.forEach(agent => {
+                const agentCategory = (agent.getAttribute('data-category') || '').toLowerCase();
+                
+                if (normalizedCategory === 'all' || agentCategory === normalizedCategory) {
+                    agent.style.display = '';
+                } else {
+                    agent.style.display = 'none';
+                }
+            });
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const agents = document.querySelectorAll('.agent-item');
+            
+            agents.forEach(agent => {
+                const name = agent.querySelector('.agent-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    agent.style.display = '';
+                } else {
+                    agent.style.display = 'none';
+                }
+            });
+        });
+
+        const modalElement = document.getElementById('agentDetailModal');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        const nameEl = document.getElementById('modalAgentName');
+        const categoryEl = document.getElementById('modalAgentCategory');
+        const idEl = document.getElementById('modalAgentId');
+        const ratingEl = document.getElementById('modalAgentRating');
+        const phoneEl = document.getElementById('modalAgentPhone');
+        const dateEl = document.getElementById('modalAgentDate');
+        const whatsappBtn = document.getElementById('modalWhatsAppBtn');
+        const reportBtn = document.getElementById('modalReportBtn');
+
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const agentId = btn.getAttribute('data-agent-id') || '';
+                const agentName = btn.getAttribute('data-agent-name') || '';
+                const agentCategory = btn.getAttribute('data-agent-category') || '';
+                const agentRating = parseInt(btn.getAttribute('data-agent-rating') || '5', 10);
+                const agentWhatsApp = btn.getAttribute('data-agent-whatsapp') || '';
+                const agentPhone = btn.getAttribute('data-agent-phone') || '';
+                const agentCreated = btn.getAttribute('data-agent-created') || '';
+
+                nameEl.textContent = agentName;
+                categoryEl.textContent = agentCategory || 'Agent';
+                idEl.textContent = agentId || '-';
+
+                const ratingCount = Math.max(1, Math.min(5, isNaN(agentRating) ? 5 : agentRating));
+                let stars = '';
+                for (let i = 0; i < ratingCount; i++) {
+                    stars += '⭐';
+                }
+                for (let i = ratingCount; i < 5; i++) {
+                    stars += '☆';
+                }
+                ratingEl.textContent = stars;
+                
+                phoneEl.textContent = agentPhone || 'N/A';
+
+                if (agentCreated) {
+                    dateEl.textContent = agentCreated;
+                } else {
+                    dateEl.textContent = 'N/A';
+                }
+
+                const cleanNumber = agentWhatsApp.replace(/[^0-9+]/g, '');
+                if (cleanNumber) {
+                    const waUrl = 'https://wa.me/' + cleanNumber.replace('+', '');
+                    whatsappBtn.href = waUrl;
+                    const encodedText = encodeURIComponent('I want to contact this agent: ' + agentName);
+                    reportBtn.href = waUrl + '?text=' + encodedText;
+                } else {
+                    whatsappBtn.href = '#';
+                    reportBtn.href = '#';
+                }
+
+                modalInstance.show();
+            });
+        });
+    </script>
+</body>
+</html>

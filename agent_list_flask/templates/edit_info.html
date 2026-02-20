@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Information - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .form-header h2 {
+            color: #2a5298;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .form-header p {
+            color: #666;
+            margin-bottom: 0;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-control:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+        }
+        .btn-submit {
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-cancel:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .back-link a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .info-preview {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        .bengali-text {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .warning-box {
+            background: #dc3545;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        .form-label {
+            color: #2a5298;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="{{ url_for('admin') }}">
+                <i class="fas fa-user-shield me-2"></i>Admin Panel
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text text-white me-3">
+                    <i class="fas fa-user me-1"></i>{{ session.admin_username }}
+                </span>
+                <a class="nav-link text-white" href="{{ url_for('index') }}">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+                <a class="nav-link text-white" href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-edit fa-3x text-warning mb-3"></i>
+                <h2>Edit Information Section</h2>
+                <p>Update the information displayed on the homepage</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Current Info Preview -->
+            <div class="info-preview">
+                <h5><strong>ভিডিও দেখে খেলুন এবং জিতুন</strong></h5>
+                <p>অ্যাকাউন্ট খোলার জন্য আমাদের এজেন্টদের সাথে যোগাযোগ করুন। আমাদের এজেন্টরা আপনাকে অ্যাকাউন্ট খুলতে সাহায্য করবে।</p>
+                
+                <div class="warning-box">
+                    <strong>⚠️ সতর্কতা:</strong> অ্যাকাউন্ট খোলার আগে এজেন্টের সাথে ভালোভাবে কথা বলে নিন। আমাদের এজেন্টরা সবসময় আপনার সাহায্যে প্রস্তুত।
+                </div>
+                
+                <p><strong>ডিপোজিট এবং উইথড্র:</strong></p>
+                <ul>
+                    <li>সর্বনিম্ন ডিপোজিট: 500 টাকা</li>
+                    <li>সর্বনিম্ন উইথড্র: 1000 টাকা</li>
+                    <li>উইথড্র সময়: 5-10 মিনিট</li>
+                    <li>24/7 সাপোর্ট উপলব্ধ</li>
+                </ul>
+            </div>
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="main_title" class="form-label">
+                        <i class="fas fa-heading me-1"></i>Main Title
+                    </label>
+                    <textarea name="main_title" id="main_title" class="form-control" rows="2" placeholder="ভিডিও দেখে খেলুন এবং জিতুন">{{ main_title }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">
+                        <i class="fas fa-align-left me-1"></i>Description
+                    </label>
+                    <textarea name="description" id="description" class="form-control" rows="3" placeholder="অ্যাকাউন্ট খোলার জন্য আমাদের এজেন্টদের সাথে যোগাযোগ করুন। আমাদের এজেন্টরা আপনাকে অ্যাকাউন্ট খুলতে সাহায্য করবে।">{{ description }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="warning" class="form-label">
+                        <i class="fas fa-exclamation-triangle me-1"></i>Warning Message
+                    </label>
+                    <textarea name="warning" id="warning" class="form-control" rows="2" placeholder="অ্যাকাউন্ট খোলার আগে এজেন্টের সাথে ভালোভাবে কথা বলে নিন। আমাদের এজেন্টরা সবসময় আপনার সাহায্যে প্রস্তুত।">{{ warning }}</textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="deposit_info" class="form-label">
+                        <i class="fas fa-money-bill me-1"></i>Deposit & Withdrawal Info
+                    </label>
+                    <textarea name="deposit_info" id="deposit_info" class="form-control" rows="4" placeholder="সর্বনিম্ন ডিপোজিট: 500 টাকা&#10;সর্বনিম্ন উইথড্র: 1000 টাকা&#10;উইথড্র সময়: 5-10 মিনিট&#10;24/7 সাপোর্ট উপলব্ধ">{{ deposit_info }}</textarea>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                    <a href="{{ url_for('admin') }}" class="btn btn-cancel">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+
+            <div class="back-link">
+                <a href="{{ url_for('admin') }}">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Admin Panel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
